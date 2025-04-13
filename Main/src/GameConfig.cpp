@@ -274,6 +274,12 @@ void GameConfig::InitDefaults()
 #else
 	Set(GameConfigKeys::KeepFontTexture, false);
 #endif
+
+  //Laser Assist
+  Set(GameConfigKeys::LaserAssistLevel, 1.05f);
+  Set(GameConfigKeys::LaserAssistPunish, 1.7f);
+  Set(GameConfigKeys::LaserAssistChangeExponent, 1.5f);
+  Set(GameConfigKeys::LaserAssistChangePeriod, 100.0f);
 }
 
 void GameConfig::UpdateVersion()

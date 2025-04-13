@@ -227,7 +227,14 @@ DefineEnum(GameConfigKeys,
 		   MirrorChart,
 		   RandomizeChart,
 		   BackupGauge,
-		   UpdateChannel)
+		   UpdateChannel,
+
+		   // Laser Assist options
+		   LaserAssistLevel,
+		   LaserAssistPunish,
+		   LaserAssistChangeExponent,
+		   LaserAssistChangePeriod
+		 )
 
 // List of settings overriden by profiles
 extern ConfigBase::KeyList GameConfigProfileSettings;
