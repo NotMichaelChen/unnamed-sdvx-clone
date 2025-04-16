@@ -1,17 +1,30 @@
 name: Build
-on: [push, workflow_dispatch]
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      buildType:
+        required: true
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - windows
+        - linux
+        - macos
+
 jobs:
     windows_build:
         name: Windows build
         runs-on: windows-latest
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: "!contains(github.event.head_commit.message, '[skip ci]') && (inputs.buildType == 'all' || inputs.buildType == 'windows')"
         steps:
             - name: Checkout repo
               uses: actions/checkout@v1
             - name: Checkout submodules
               run: git submodule update --init --recursive
             - name: Cache vcpkg
-              uses: actions/cache@v2
+              uses: actions/cache@v4
               with:
                 path: |
                   vcpkg
@@ -48,7 +61,7 @@ jobs:
     linux_build:
         name: Linux build
         runs-on: ubuntu-latest
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: "!contains(github.event.head_commit.message, '[skip ci]') && (inputs.buildType == 'all' || inputs.buildType == 'linux')"
         steps:
             - name: Checkout repo
               uses: actions/checkout@v1
@@ -85,7 +98,7 @@ jobs:
     macos_build:
         name: macOS build
         runs-on: macos-latest
-        if: "!contains(github.event.head_commit.message, '[skip ci]')"
+        if: "!contains(github.event.head_commit.message, '[skip ci]') && (inputs.buildType == 'all' || inputs.buildType == 'macos')"
         steps:
             - name: Checkout repo
               uses: actions/checkout@v1
